@@ -5,6 +5,24 @@ from vk_api import VkUpload
 from vk_api.longpoll import VkLongPoll, VkEventType
 from datetime import datetime, date, time
 import time
+  
+import requests
+from bs4 import BeautifulSoup
+url = 'http://www.hentai-foundry.com/pictures/user/Sparrow'
+headers = {'user-agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36'}
+cock = {
+    'PHPSESSID':'6rCnUuIW0bwqvyHDgr3mLZILYZh8X1bDTY4-wIXelbxhu54f'
+}
+page = requests.get(url, headers = headers, cookies =cock)
+
+soup = BeautifulSoup(page.content, 'html.parser')
+source_picture = list()
+for link in soup.find_all('a',{'class':'thumbLink'}):
+    source_picture.append(link.get('href'))
+    print(link.get('href'))
+
+#cdresult = soup.find(id = id_obj).text
+#http://www.hentai-foundry.com/pictures/user/Sparrow/831884/Wendys-Handy
 
 def parser(id_obj):
     url = 'https://a55.agorov.org/'
